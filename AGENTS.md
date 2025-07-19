@@ -79,27 +79,27 @@ processing:
 - [x] Add error handling for connection issues
 
 #### 7. CLI Interface
-- [ ] Install click
-- [ ] Create cli/main.py
-- [ ] Implement `roserade init` command
-- [ ] Implement `roserade add` command (single file/directory)
-- [ ] Implement `roserade search` command
-- [ ] Implement `roserade list` command
-- [ ] Implement `roserade remove` command
-- [ ] Add global options (--db-path, --config, --verbose)
+- [x] Install click
+- [x] Create cli/main.py
+- [x] Implement `roserade init` command
+- [x] Implement `roserade add` command (single file/directory)
+- [x] Implement `roserade search` command
+- [x] Implement `roserade list` command
+- [x] Implement `roserade remove` command
+- [x] Add global options (--db-path, --config, --verbose)
 
 #### 8. Indexing Pipeline
-- [ ] Create indexer.py
-- [ ] Implement document indexing workflow
-- [ ] Add duplicate detection (path + mtime)
-- [ ] Add progress reporting
-- [ ] Add error handling and logging
+- [x] Create indexer.py
+- [x] Implement document indexing workflow
+- [x] Add duplicate detection (path + mtime)
+- [x] Add progress reporting
+- [x] Add error handling and logging
 
 #### 9. Search Functionality
-- [ ] Implement vector similarity search
-- [ ] Add result formatting (table, json)
-- [ ] Add similarity threshold filtering
-- [ ] Add result limiting
+- [x] Implement vector similarity search
+- [x] Add result formatting (table, json)
+- [x] Add similarity threshold filtering
+- [x] Add result limiting
 
 #### 10. Testing
 - [ ] Set up pytest configuration
@@ -146,6 +146,12 @@ uv run mypy src/
 
 # Build
 uv build
+
+# Run CLI
+uv run roserade --help
+uv run roserade init
+uv run roserade add README.md
+uv run roserade search "python"
 ```
 
 ## File Structure (Phase 1)

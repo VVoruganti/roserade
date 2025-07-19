@@ -37,6 +37,7 @@ dependencies = [
     "chonkie>=0.1.0",
     "pdfplumber>=0.10.0",
     "sqlite-vec>=0.0.1",
+    "aiohttp>=3.12.14",
 ]
 
 [project.optional-dependencies]
@@ -89,3 +90,12 @@ minversion = "7.0"
 addopts = "-ra -q --strict-markers --cov=src/roserade --cov-report=term-missing"
 testpaths = ["tests"]
 pythonpath = ["src"]
+
+[dependency-groups]
+dev = [
+    "factory-boy>=3.3.3",
+    "pytest>=8.4.1",
+    "pytest-asyncio>=1.1.0",
+    "pytest-cov>=6.2.1",
+    "pytest-mock>=3.14.1",
+]

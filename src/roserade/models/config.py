@@ -10,6 +10,7 @@ class DatabaseConfig(BaseModel):
 class OllamaConfig(BaseModel):
     host: str = "http://localhost:11434"
     embedding_model: str = "nomic-embed-text"
+    timeout: int = 30
 
 
 class ChunkingConfig(BaseModel):

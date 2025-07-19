@@ -11,15 +11,11 @@ class Chunker:
         self.config = config
         self.token_chunker = TokenChunker(
             chunk_size=config.size,
-            chunk_overlap=config.overlap,
-            min_chunk_size=config.min_chunk_size,
-            max_chunk_size=config.max_chunk_size
+            chunk_overlap=config.overlap
         )
         self.sentence_chunker = SentenceChunker(
             chunk_size=config.size,
-            chunk_overlap=config.overlap,
-            min_chunk_size=config.min_chunk_size,
-            max_chunk_size=config.max_chunk_size
+            chunk_overlap=config.overlap
         )
 
     def chunk_document(self, content: str, document_id: int, file_type: str) -> List[Dict[str, Any]]:

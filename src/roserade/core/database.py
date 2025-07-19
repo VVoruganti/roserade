@@ -100,7 +100,7 @@ class Database:
     def insert_document(self, document_data: Dict[str, Any]) -> int:
         with self.get_connection() as conn:
             cursor = conn.execute("""
-                INSERT INTO documents (path, filename, file_type, size_bytes, content_hash, metadata)
+                INSERT OR IGNORE INTO documents (path, filename, file_type, size_bytes, content_hash, metadata)
                 VALUES (?, ?, ?, ?, ?, ?)
             """, (
                 document_data['path'],
@@ -110,6 +110,12 @@ class Database:
                 document_data['content_hash'],
                 json.dumps(document_data.get('metadata', {}))
             ))
+            
+            if cursor.lastrowid == 0:
+                # Document already exists, return existing ID
+                existing = self.get_document_by_path(document_data['path'])
+                return existing['id'] if existing else 0
+            
             return cursor.lastrowid
 
     def update_document_indexed_time(self, document_id: int) -> None:
@@ -169,7 +175,7 @@ class Database:
     def list_documents(self, limit: int = 100, offset: int = 0) -> List[Dict[str, Any]]:
         with self.get_connection() as conn:
             cursor = conn.execute(
-                "SELECT * FROM documents ORDER BY created_at DESC LIMIT ? OFFSET ?",
+                "SELECT * FROM documents ORDER BY id DESC LIMIT ? OFFSET ?",
                 (limit, offset)
             )
             return [dict(row) for row in cursor.fetchall()]
