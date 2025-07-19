@@ -35,48 +35,48 @@ processing:
 ### Phase 1: MVP Core (Priority Order)
 
 #### 1. Project Setup
-- [ ] Initialize UV project structure
-- [ ] Create pyproject.toml with minimal dependencies
-- [ ] Set up src/roserade/ directory structure
-- [ ] Create basic __init__.py files
+- [x] Initialize UV project structure
+- [x] Create pyproject.toml with minimal dependencies
+- [x] Set up src/roserade/ directory structure
+- [x] Create basic __init__.py files
 
 #### 2. Database Layer
-- [ ] Install sqlite-vec Python wrapper
-- [ ] Create database.py with connection management
-- [ ] Implement schema creation (exact SQL from spec)
-- [ ] Add basic CRUD operations for documents
-- [ ] Add CRUD operations for chunks
-- [ ] Add vector storage operations
+- [x] Install sqlite-vec Python wrapper
+- [x] Create database.py with connection management
+- [x] Implement schema creation (exact SQL from spec)
+- [x] Add basic CRUD operations for documents
+- [x] Add CRUD operations for chunks
+- [x] Add vector storage operations
 
 #### 3. Configuration System
-- [ ] Create models/config.py with simplified AppConfig
-- [ ] Implement config loading from YAML
-- [ ] Add XDG directory support (~/.config/roserade/)
-- [ ] Create default config file generation
+- [x] Create models/config.py with simplified AppConfig
+- [x] Implement config loading from YAML
+- [x] Add XDG directory support (~/.config/roserade/)
+- [x] Create default config file generation
 
 #### 4. Document Processing
-- [ ] Install pdfplumber
-- [ ] Create document_processor.py
-- [ ] Implement PDF text extraction
-- [ ] Implement TXT file reading
-- [ ] Implement MD file reading
-- [ ] Add file type detection
-- [ ] Add content hashing (SHA-256)
+- [x] Install pdfplumber
+- [x] Create document_processor.py
+- [x] Implement PDF text extraction
+- [x] Implement TXT file reading
+- [x] Implement MD file reading
+- [x] Add file type detection
+- [x] Add content hashing (SHA-256)
 
 #### 5. Chunking System
-- [ ] Install chonkie latest version
-- [ ] Create chunker.py with Chonkie integration
-- [ ] Implement fixed-size chunking
-- [ ] Implement semantic chunking
-- [ ] Add chunk metadata (word count, sentence count)
-- [ ] Add content hashing for chunks
+- [x] Install chonkie latest version
+- [x] Create chunker.py with Chonkie integration
+- [x] Implement fixed-size chunking
+- [x] Implement semantic chunking
+- [x] Add chunk metadata (word count, sentence count)
+- [x] Add content hashing for chunks
 
 #### 6. Ollama Integration
-- [ ] Create embedder.py
-- [ ] Implement Ollama client
-- [ ] Add embedding generation
-- [ ] Add batch processing
-- [ ] Add error handling for connection issues
+- [x] Create embedder.py
+- [x] Implement Ollama client
+- [x] Add embedding generation
+- [x] Add batch processing
+- [x] Add error handling for connection issues
 
 #### 7. CLI Interface
 - [ ] Install click
