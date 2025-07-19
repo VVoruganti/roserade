@@ -130,7 +130,7 @@ def add(ctx, path, recursive, force, chunk_size, chunk_overlap, db_path, config,
         files_to_process = [path]
     else:
         pattern = "**/*" if recursive else "*"
-        for ext in config.processing.supported_extensions:
+        for ext in app_config.processing.supported_extensions:
             files_to_process.extend(path.glob(f"{pattern}{ext}"))
     
     if not files_to_process:
@@ -181,12 +181,15 @@ def add(ctx, path, recursive, force, chunk_size, chunk_overlap, db_path, config,
                 else:
                     doc_id = db.insert_document(document_data)
                 
+                # Mark as indexed
+                db.update_document_indexed_time(doc_id)
+                
                 # Chunk the document
                 chunks = chunker.chunk_document(text_data['content'], doc_id, file_info['file_type'])
                 
                 # Generate embeddings
                 chunk_texts = [chunk['content'] for chunk in chunks]
-                embeddings = asyncio.run(embedder.sync_generate_embeddings(chunk_texts))
+                embeddings = embedder.sync_generate_embeddings(chunk_texts)
                 
                 # Store chunks and embeddings
                 for chunk, embedding in zip(chunks, embeddings):
@@ -245,7 +248,7 @@ def search(ctx, query, limit, threshold, output_format, db_path, config, verbose
     
     if not results:
         console.print("No results found.")
-        return
+        return 0
     
     if output_format == 'json':
         import json

@@ -1,4 +1,4 @@
-test.db
+*.db
 .venv/
 
 # Byte-compiled / optimized / DLL files

@@ -35,7 +35,7 @@ class TestCLIIntegration:
         assert result.exit_code == 0
         assert "No documents indexed yet" in result.output
 
-    def test_add_single_file(self, runner, temp_dir):
+    def test_add_single_file(self, runner, temp_dir, monkeypatch):
         """Test adding a single file."""
         db_path = temp_dir / "test.db"
         test_file = temp_dir / "test.txt"
@@ -43,19 +43,36 @@ class TestCLIIntegration:
         
         runner.invoke(cli, ['init', '--db-path', str(db_path)])
         
-        # Mock Ollama connection for testing
+        # Mock Ollama connection and embedding generation
+        async def mock_check_connection(self):
+            return True
+        
+        def mock_sync_generate_embeddings(self, texts):
+            # Return mock embeddings with correct dimensions
+            return [[0.1] * 768 for _ in texts]
+        
+        # Apply mocks - use the correct module path
+        from roserade.core.embedder import OllamaEmbedder
+        monkeypatch.setattr(OllamaEmbedder, 'check_connection', mock_check_connection)
+        monkeypatch.setattr(OllamaEmbedder, 'sync_generate_embeddings', mock_sync_generate_embeddings)
+        
         result = runner.invoke(cli, [
-            'add', str(test_file), 
+            'add', str(test_file),
             '--db-path', str(db_path)
         ])
         
-        # Note: This will fail without Ollama running, but we test the CLI structure
-        assert result.exit_code in [0, 1]  # 0 for success, 1 for Ollama connection error
-
-    def test_search_empty(self, runner, temp_dir):
+        assert result.exit_code == 0
+        assert "Processed 1 documents" in result.output
+    def test_search_empty(self, runner, temp_dir, monkeypatch):
         """Test search with no results."""
         db_path = temp_dir / "test.db"
         runner.invoke(cli, ['init', '--db-path', str(db_path)])
+        
+        # Mock embedding generation
+        async def mock_generate_embedding(self, text):
+            return [0.1] * 768
+        
+        monkeypatch.setattr('roserade.core.embedder.OllamaEmbedder.generate_embedding', mock_generate_embedding)
         
         result = runner.invoke(cli, ['search', 'nonexistent', '--db-path', str(db_path)])
         
